@@ -1,0 +1,32 @@
+{% include 'driving_school/header.html' %}
+
+{% block content %}
+<script>
+    function adjustTime(increment) {
+        let timeField = document.getElementById('timeField');
+        let timeParts = timeField.value.split(':');
+        let hour = parseInt(timeParts[0], 10);
+        
+        hour = (hour + increment + 24) % 24; // Ensure hour stays within 0-23 range
+        
+        timeField.value = `${hour.toString().padStart(2, '0')}:${timeParts[1]}`;
+    }
+  </script>
+    <div class="container mt-5 mb-4" style="height: 83vh;">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mt-3">Nouveau rendez-vous</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="button" onclick="adjustTime(-1)">-</button>
+                    <input id="timeField" type="time" name="time" value="08:00">
+                    <button type="button" onclick="adjustTime(1)">+</button>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% include 'driving_school/footer.html' %}

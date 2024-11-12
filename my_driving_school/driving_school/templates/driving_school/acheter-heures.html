@@ -1,0 +1,18 @@
+{% include 'driving_school/header.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4 text-center text-primary">Acheter des heures de conduite</h2>
+    <form method="post" class="w-50 mx-auto text-align-center">
+        {% csrf_token %}
+        <div class="form-group text-align-center">
+            <label for="id_hours">Nombre d'heures à acheter:</label>
+            {{ form.hours }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block ">Acheter</button>
+    </form>
+</div>
+{% endblock %}
+
+{% include 'driving_school/footer.html' %}

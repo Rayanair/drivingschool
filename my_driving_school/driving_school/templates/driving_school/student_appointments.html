@@ -1,0 +1,55 @@
+{% include 'driving_school/header.html' %}
+
+{% block content %}
+    <h2 class="text-center mt-2 pt-5 mt-5">Mes rendez-vous</h2>
+    <div id='calendar'></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type='importmap'>
+        {
+            "imports": {
+                "@fullcalendar/core": "https://cdn.skypack.dev/@fullcalendar/core@6.1.11",
+                "@fullcalendar/daygrid": "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.11"
+            }
+        }
+    </script>
+
+    <script type='module'>
+        import { Calendar } from '@fullcalendar/core';
+        import dayGridPlugin from '@fullcalendar/daygrid';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            if (calendarEl) {
+                var calendar = new Calendar(calendarEl, {
+                    plugins: [ dayGridPlugin ],
+                    
+                    events: [
+                        {% for appointment in appointments %}
+                            {
+                                id: '{{ appointment.id }}',
+                                title: 'Rendez-vous avec {{ appointment.instructor.user.username|escapejs }}',
+                                start: '{{ appointment.date|date:"Y-m-d" }}T{{ appointment.time|date:"H:i" }}',
+                            },
+                        {% endfor %}
+                    ],
+                    
+                   
+                });
+                calendar.render();
+            } else {
+                console.error('Element with ID "calendar" not found');
+            }
+        });
+    </script>
+    <style>
+        #calendar {
+            margin: auto !important;
+            width: 80vw;
+            padding-bottom: 80px;
+        }
+        </style>
+{% endblock %}
+
+{% include 'driving_school/footer.html' %}

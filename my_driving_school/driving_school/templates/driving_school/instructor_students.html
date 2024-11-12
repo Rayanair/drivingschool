@@ -1,0 +1,32 @@
+{% load static %}
+{% include 'driving_school/header.html' %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+{% block content %}
+    <div class="container mt-5" style="height: 86vh;">
+        <h2 class="mb-4 pt-5">Mes élèves</h2>
+        <ul class="list-group pb-5">
+            {% for student in students %}
+            <li class="list-group-item">
+                <strong>Nom d'utilisateur :</strong> {{ student.user.username }} <br>
+                <strong>Email :</strong> {{ student.user.email }} <br>
+                <strong>Nom :</strong> {{ student.user.first_name }} {{ student.user.last_name }} <br>
+                <strong>Adresse :</strong> {{ student.address }} <br>
+                <strong>Numéro de téléphone :</strong> {{ student.phone_number }} <br>
+                <strong>Date de naissance :</strong> {{ student.birth_date }} <br>
+                <strong>Heures payées :</strong> {{ student.hours_paid }} <br>
+                <strong>Heures posées :</strong> {{ student.lessons_taken }} <br>
+                <strong>Heures disponibles :</strong> {{ student.hours_available }}
+            </li>
+            {% empty %}
+                <li class="list-group-item">Vous n'avez pas d'élèves.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+{% include 'driving_school/footer.html' %}

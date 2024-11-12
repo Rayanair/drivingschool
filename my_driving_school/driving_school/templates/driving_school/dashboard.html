@@ -1,0 +1,57 @@
+{% include 'driving_school/header.html' %}
+
+<div class="container mt-5 pt-5" style="height: 85vh;" >
+    <h1 class="text-center">Tableau de bord</h1>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% load custom_filters %}
+
+                    <h5 class="card-title">Informations sur l'utilisateur</h5>
+                    {% if user_info.instructor %}
+                        <p class="card-text">Nom d'utilisateur: {{ user_info.username }}</p>
+                        <p class="card-text">Email: {{ user_info.email }}</p>
+                        <div class="row">
+                        <div class="col-4">
+                            <a href="{% url 'instructor_appointments' %}" class="btn btn-primary">Voir mes rendez-vous</a>
+
+
+                        </div>
+                        <div class="col-4">
+                            <a href="{% url 'instructor_students' %}" class="btn btn-primary">Voir mes élèves</a>
+
+
+                        </div>
+                        <div class="col-4">
+                            <a href="{% url 'new_appointment' %}" class="btn btn-primary">Ajouter un rendez-vous</a>
+
+
+                        </div>
+                    </div>
+                    {% else %}
+                        <strong>Nom d'utilisateur :</strong> {{ user_info.student.username }} <br>
+                        <strong>Email :</strong> {{ user_info.student.email }} <br>
+                        <strong>Nom :</strong> {{ user_info.student.first_name }} {{ user_info.student.last_name }} <br>
+                        <strong>Adresse :</strong> {{ user_info.student.address }} <br>
+                        <strong>Numéro de téléphone :</strong> {{ user_info.student.phone_number }} <br>
+                        <strong>Date de naissance :</strong> {{ user_info.student.birth_date }} <br>
+                        <strong>Heures payées :</strong> {{ user_info.student.hours_paid }} <br>
+                        <strong>Heures posées :</strong> {{ user_info.student.lessons_taken }} <br>
+                        <strong>Heures disponibles :</strong> {{ user_info.student.hours_available }} <br>
+                        <a href="{% url 'student_appointments' %}" class="btn btn-primary">Voir mes rendez-vous</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Ajoutez d'autres éléments du tableau de bord ici -->
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% include 'driving_school/footer.html' %}
